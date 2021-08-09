@@ -15,7 +15,7 @@ ARG LAUNCHER=default
 
 # define base image
 ARG DOCKER_REGISTRY=docker.io
-FROM duckietown/dt-gui-tools:${BASE_IMAGE}:${BASE_TAG} as BASE
+FROM duckietown/${BASE_IMAGE}:${BASE_TAG} as BASE
 
 # recall all arguments
 ARG ARCH
@@ -32,7 +32,7 @@ ARG LAUNCHER
 RUN dt-build-env-check "${REPO_NAME}" "${MAINTAINER}" "${DESCRIPTION}"
 
 # define/create repository path
-ARG REPO_PATH="${CATKIN_WS_DIR}/src/${REPO_NAME}"
+ARG REPO_PATH="/${REPO_NAME}"
 ARG LAUNCH_PATH="${LAUNCH_DIR}/${REPO_NAME}"
 RUN mkdir -p "${REPO_PATH}"
 RUN mkdir -p "${LAUNCH_PATH}"
@@ -97,9 +97,8 @@ RUN pip3 install depthai==2.7.1
 ARG PIP_INDEX_URL="https://pypi.org/simple"
 ENV PIP_INDEX_URL=${PIP_INDEX_URL}
 RUN echo PIP_INDEX_URL=${PIP_INDEX_URL}
-COPY ./dependencies-py3.txt "${REPO_PATH}/"
-RUN pip3 uninstall opencv-python &&\
-    pip3 uninstall opencv-contrib-python &&\
+RUN pip3 uninstall -y opencv-python &&\
+    pip3 uninstall -y opencv-contrib-python &&\
     pip3 install opencv-python &&\
     pip3 install opencv-contrib-python
 

@@ -15,7 +15,7 @@ dt-launchfile-init
 # launching app
 # dt-exec roslaunch camera_driver camera_node.launch veh:=$VEHICLE_NAME
 
-dt-exec roslaunch oakd_pkg oakd_basics.launch veh:=$VEHICLE_NAME
+dt-exec python3 /oakd-calibration/depthai/calibrate.py -s 2.35 -brd bw1098obc -db -ih
 
 # ----------------------------------------------------------------------------
 # YOUR CODE ABOVE THIS LINE
